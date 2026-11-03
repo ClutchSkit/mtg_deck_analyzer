@@ -1,6 +1,6 @@
 # MTG DECK ANALYZER
 #### Description:
-MTG DECK ANALYZER is a simple terminal run tool that analyzes a plain-text exported decklist(from websites such as [Moxfield](https://moxfield.com/) or https://edhrec.com/) and return an analysis of:\
+MTG DECK ANALYZER is a simple terminal run tool that analyzes a plain-text exported decklist(from websites such as [Moxfield](https://moxfield.com/) or [EDHRec](https://edhrec.com/) and return an analysis of:
 * The number of cards of each card type (Lands, Instants, Creatures, etc.)\
 * The number of cards that require a certain mana type to be cast (White, Blue, etc.)\
 * The number of lands that can produce each type of mana (fetch lands counted separately)\
