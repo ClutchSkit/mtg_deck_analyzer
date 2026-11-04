@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/analysis"
-	"github.com/ClutchSkit/mtg_deck_statistics/deck"
-	"github.com/ClutchSkit/mtg_deck_statistics/report"
-	"github.com/ClutchSkit/mtg_deck_statistics/scryfall"
+	"github.com/ClutchSkit/mtg_deck_analyzer/analysis"
+	"github.com/ClutchSkit/mtg_deck_analyzer/deck"
+	"github.com/ClutchSkit/mtg_deck_analyzer/report"
+	"github.com/ClutchSkit/mtg_deck_analyzer/scryfall"
 )
 
 func main() {

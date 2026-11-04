@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/scryfall"
+	"github.com/ClutchSkit/mtg_deck_analyzer/scryfall"
 )
 
 func TestParseDeckLine(t *testing.T) {

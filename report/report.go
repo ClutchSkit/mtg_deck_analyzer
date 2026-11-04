@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/analysis"
+	"github.com/ClutchSkit/mtg_deck_analyzer/analysis"
 )
 
 func GenerateReport(commanderName string, deckStats analysis.DeckStats, probabilities analysis.Probabilities) {

@@ -3,8 +3,8 @@ package analysis
 import (
 	"testing"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/deck"
-	"github.com/ClutchSkit/mtg_deck_statistics/scryfall"
+	"github.com/ClutchSkit/mtg_deck_analyzer/deck"
+	"github.com/ClutchSkit/mtg_deck_analyzer/scryfall"
 )
 
 func makeFoundCard(quantity int, name string, typeLine string, colors []string, production []string, cmc float64) deck.FoundCard {

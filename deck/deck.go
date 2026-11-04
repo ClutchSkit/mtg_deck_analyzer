@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/scryfall"
+	"github.com/ClutchSkit/mtg_deck_analyzer/scryfall"
 )
 
 type CardEntry struct {

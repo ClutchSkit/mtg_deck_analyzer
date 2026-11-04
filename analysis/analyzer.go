@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ClutchSkit/mtg_deck_statistics/deck"
+	"github.com/ClutchSkit/mtg_deck_analyzer/deck"
 )
 
 const OpeningHandSize = 8
