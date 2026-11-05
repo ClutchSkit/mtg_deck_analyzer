@@ -14,14 +14,9 @@ import (
 )
 
 func main() {
-	datasetMetadata, err := scryfall.GetOracleCardsGzipURI()
-	if err != nil {
-		fmt.Printf("Could not retrieve metadata: %v", err)
-		return
-	}
-	err = scryfall.EnsureDataset("data/oracle-cards.jsonl", datasetMetadata)
-	if err != nil {
-		fmt.Printf("Retrieving the dataset from scryfall failed: %v", err)
+	err := scryfall.PrepareDataset("data/oracle-cards.jsonl")
+	if err != nil{
+		fmt.Printf("Preparing the dataset failed: %v", err)
 		return
 	}
 	dataset, err := scryfall.LoadCards("data/oracle-cards.jsonl")
