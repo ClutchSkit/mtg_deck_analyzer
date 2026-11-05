@@ -51,7 +51,7 @@ func TestParseDeckLine(t *testing.T) {
 }
 
 func TestParseDeckList(t *testing.T) {
-	decklist, _, err := ParseDeckList("../decklists/sample.txt")
+	decklist, _, err := ParseDeckList("../testdata/sample.txt")
 
 	if err != nil {
 		t.Fatalf("Error parsing deck: %v", err)
