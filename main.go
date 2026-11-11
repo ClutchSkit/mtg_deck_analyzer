@@ -14,19 +14,14 @@ import (
 )
 
 func main() {
-	datasetMetadata, err := scryfall.GetOracleCardsGzipURI()
+	err := scryfall.PrepareDataset("data/oracle-cards.jsonl")
 	if err != nil {
-		fmt.Printf("Could not retrieve metadata: %v", err)
-		return
-	}
-	err = scryfall.EnsureDataset("data/oracle-cards.jsonl", datasetMetadata)
-	if err != nil {
-		fmt.Printf("Retrieving the dataset from scryfall failed: %v", err)
+		fmt.Printf("Preparing the dataset failed: %v\n", err)
 		return
 	}
 	dataset, err := scryfall.LoadCards("data/oracle-cards.jsonl")
 	if err != nil {
-		fmt.Printf("Loading the dataset into a map failed: %v", err)
+		fmt.Printf("Loading the dataset into a map failed: %v\n", err)
 		return
 	}
 	fmt.Printf("Loaded %d cards from dataset\n", len(dataset))
@@ -45,7 +40,7 @@ func main() {
 
 	deckList, parseErr, err := deck.ParseDeckList(deckPath)
 	if err != nil {
-		fmt.Printf("Failed to parse deckList: %v", err)
+		fmt.Printf("Failed to parse deckList: %v\n", err)
 		return
 	}
 	if len(parseErr) != 0 {
@@ -68,7 +63,7 @@ func main() {
 
 	deckList, _, err = deck.ExtractCommander(deckList, commanderName)
 	if err != nil {
-		fmt.Printf("Failed to remove commander from decklist: %v", err)
+		fmt.Printf("Failed to remove commander from decklist: %v\n", err)
 		return
 	}
 	foundCards, missingErr := deck.ResolveCards(deckList, dataset)
@@ -81,7 +76,7 @@ func main() {
 
 	probabilities, err := analysis.CalculateProbabilities(deckStats)
 	if err != nil {
-		fmt.Printf("Failed to calculate probabilities: %v", err)
+		fmt.Printf("Failed to calculate probabilities: %v\n", err)
 		return
 	}
 

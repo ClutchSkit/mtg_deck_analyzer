@@ -67,6 +67,32 @@ func TestParseDeckList(t *testing.T) {
 	}
 }
 
+func TestParseDeckListText(t *testing.T) {
+	decklist, parseErrors, err := ParseDeckListText("1 Sol Ring\n1 Arcane Signet\n1 Cultivate\n1 Black Lotus\n1 Mana Crypt")
+
+	if err != nil {
+		t.Fatalf("Error parsing deck: %v", err)
+	}
+	if len(parseErrors) != 0 {
+		t.Fatalf("Expected 0 lines witth parse errors, got: %d", len(parseErrors))
+	}
+	if len(decklist) != 5 {
+		t.Fatalf("Expected 5 cards, got %d", len(decklist))
+	}
+	if decklist[0].Name != "Sol Ring" {
+		t.Errorf("Expected name of first card Sol Ring, got %s", decklist[0].Name)
+	}
+	if decklist[0].Quantity != 1 {
+		t.Errorf("Expected quantity of first card 1, got %d", decklist[0].Quantity)
+	}
+	if decklist[4].Name != "Mana Crypt" {
+		t.Errorf("Expected name of last card Mana Crypt, got %s", decklist[4].Name)
+	}
+	if decklist[4].Quantity != 1 {
+		t.Errorf("Expected quantity of last card 1, got %d", decklist[4].Quantity)
+	}
+}
+
 func TestParseDeckListSkipsMalformedLines(t *testing.T) {
 	tempDir := t.TempDir()
 	path := filepath.Join(tempDir, "test_deck.txt")

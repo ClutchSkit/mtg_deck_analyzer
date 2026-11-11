@@ -154,3 +154,15 @@ func ShouldUpdateDataset(timestampPath string, metadata Metadata) (bool, error) 
 	}
 	return false, nil
 }
+
+func PrepareDataset(path string) error {
+	datasetMetadata, err := GetOracleCardsGzipURI()
+	if err != nil {
+		return fmt.Errorf("could not retrieve metadata: %w", err)
+	}
+	err = EnsureDataset(path, datasetMetadata)
+	if err != nil {
+		return fmt.Errorf("retrieving the dataset from scryfall failed: %w", err)
+	}
+	return nil
+}

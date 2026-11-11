@@ -3,6 +3,7 @@ package deck
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -58,7 +59,25 @@ func ParseDeckList(path string) ([]CardEntry, []string, error) {
 		return nil, nil, err
 	}
 	defer file.Close()
-	scanner := bufio.NewScanner(file)
+	cards, parseErrors, err := parseDeckList(file)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to parse decklist: %w", err)
+	}
+	return cards, parseErrors, nil
+
+}
+
+func ParseDeckListText(deckList string) ([]CardEntry, []string, error) {
+	reader := strings.NewReader(deckList)
+	cards, parseErrors, err := parseDeckList(reader)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to parse decklist: %w", err)
+	}
+	return cards, parseErrors, nil
+}
+
+func parseDeckList(reader io.Reader) ([]CardEntry, []string, error) {
+	scanner := bufio.NewScanner(reader)
 	lineNumber := 0
 	var cards []CardEntry
 	var parseErrors []string
@@ -73,16 +92,15 @@ func ParseDeckList(path string) ([]CardEntry, []string, error) {
 		if err != nil {
 			parseErrors = append(parseErrors, fmt.Sprintf("Line %d: %v", lineNumber, err))
 			continue
-		} else {
-			cards = append(cards, card)
 		}
+		cards = append(cards, card)
+
 	}
-	if scanner.Err() != nil {
-		return nil, nil, scanner.Err()
+	if err := scanner.Err(); err != nil {
+		return nil, nil, err
 	}
 
 	return cards, parseErrors, nil
-
 }
 
 func ResolveCards(deckList []CardEntry, cardDatabaseMap map[string]scryfall.Card) ([]FoundCard, error) {
