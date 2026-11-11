@@ -64,6 +64,7 @@ type RoleStats struct {
 	Ramp                int
 	CardDraw            int
 	Tutors              int
+	DistinctRemoval     int
 	CreatureRemoval     int
 	ArtifactRemoval     int
 	EnchantmentRemoval  int
@@ -98,6 +99,7 @@ type RoleProbabilities struct {
 	Ramp                float64
 	CardDraw            float64
 	Tutors              float64
+	DistinctRemoval     float64
 	CreatureRemoval     float64
 	ArtifactRemoval     float64
 	EnchantmentRemoval  float64
@@ -168,6 +170,7 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 	for _, card := range deck {
 		typeLine := card.Card.TypeLine
 		roleFound := false
+		removalFound := false
 		if strings.Contains(typeLine, "Land") == true {
 			stats.CardTypes.Lands += card.Quantity
 			if fetchLandPattern.MatchString(card.Card.OracleText) == true {
@@ -231,6 +234,7 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 				stats.Roles.CreatureRemoval += card.Quantity
 				//creature removal
 				roleFound = true
+				removalFound = true
 			}
 
 			indexes = artifactBounceRemovalPattern.FindStringIndex(card.Card.OracleText)
@@ -247,6 +251,7 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 				stats.Roles.ArtifactRemoval += card.Quantity
 				//artifact removal
 				roleFound = true
+				removalFound = true
 			}
 
 			indexes = enchantmentBounceRemovalPattern.FindStringIndex(card.Card.OracleText)
@@ -263,6 +268,7 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 				stats.Roles.EnchantmentRemoval += card.Quantity
 				//enchantment removal
 				roleFound = true
+				removalFound = true
 			}
 
 			indexes = planeswalkerBounceRemovalPattern.FindStringIndex(card.Card.OracleText)
@@ -280,6 +286,7 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 				stats.Roles.PlaneswalkerRemoval += card.Quantity
 				//planeswalker removal
 				roleFound = true
+				removalFound = true
 			}
 			if counterspellProtectionPattern.MatchString(card.Card.OracleText) == true ||
 				permanentProtectionPattern.MatchString(card.Card.OracleText) == true {
@@ -299,6 +306,9 @@ func DeckAnalysis(deck []deck.FoundCard) DeckStats {
 			}
 			if roleFound == false {
 				stats.Roles.Other += card.Quantity
+			}
+			if removalFound == true {
+				stats.Roles.DistinctRemoval += card.Quantity
 			}
 
 		}
@@ -409,6 +419,7 @@ func CalculateProbabilities(stats DeckStats) (Probabilities, error) {
 	probabilities.Roles.Ramp, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.Ramp, 1)
 	probabilities.Roles.CardDraw, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.CardDraw, 1)
 	probabilities.Roles.Tutors, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.Tutors, 1)
+	probabilities.Roles.DistinctRemoval, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.DistinctRemoval, 1)
 	probabilities.Roles.CreatureRemoval, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.CreatureRemoval, 1)
 	probabilities.Roles.ArtifactRemoval, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.ArtifactRemoval, 1)
 	probabilities.Roles.EnchantmentRemoval, _ = HypergeometricProbability(stats.TotalCards, stats.Roles.EnchantmentRemoval, 1)

@@ -76,6 +76,7 @@ func GenerateReport(commanderName string, deckStats analysis.DeckStats, probabil
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Ramp", deckStats.Roles.Ramp, probabilities.Roles.Ramp*100)
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Card Draw", deckStats.Roles.CardDraw, probabilities.Roles.CardDraw*100)
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Tutors", deckStats.Roles.Tutors, probabilities.Roles.Tutors*100)
+	fmt.Printf("%-20s %5d %8.1f%%\n", "Distinct Removal", deckStats.Roles.DistinctRemoval, probabilities.Roles.DistinctRemoval*100)
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Creature Removal", deckStats.Roles.CreatureRemoval, probabilities.Roles.CreatureRemoval*100)
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Artifact Removal", deckStats.Roles.ArtifactRemoval, probabilities.Roles.ArtifactRemoval*100)
 	fmt.Printf("%-20s %5d %8.1f%%\n", "Enchantment Removal", deckStats.Roles.EnchantmentRemoval, probabilities.Roles.EnchantmentRemoval*100)
